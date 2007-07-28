@@ -1,19 +1,18 @@
 ---
 name: Net-Google-AuthSub
-version: 0.2
+version: 0.3
 author:
   - 'Simon Wistow <simon@thegestalt.org>'
 abstract: interact with sites that implement Google style AuthSub
 license: unknown
 requires:
-  JSON::Any: 0
   LWP::UserAgent: 0
   Test::More: 0.62
   URI: 0
 provides:
   Net::Google::AuthSub:
     file: lib/Net/Google/AuthSub.pm
-    version: 0.2
+    version: 0.3
   Net::Google::AuthSub::Response:
     file: lib/Net/Google/AuthSub/Response.pm
 generated_by: Module::Build version 0.2801

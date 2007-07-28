@@ -5,7 +5,6 @@ WriteMakefile
           'NAME' => 'Net::Google::AuthSub',
           'VERSION_FROM' => 'lib/Net/Google/AuthSub.pm',
           'PREREQ_PM' => {
-                           'JSON::Any' => '0',
                            'LWP::UserAgent' => '0',
                            'Test::More' => '0.62',
                            'URI' => '0'
