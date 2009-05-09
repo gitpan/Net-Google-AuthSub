@@ -7,7 +7,7 @@ use HTTP::Request::Common;
 use Net::Google::AuthSub::Response;
 use URI;
 
-$VERSION  = '0.4';
+$VERSION  = '0.5';
 $APP_NAME = __PACKAGE__."-".$VERSION;
 
 use constant CLIENT_LOGIN => 0;
@@ -194,9 +194,12 @@ sub login {
 sub _response_failure {
     my $self = shift;
     my $r    = shift;
-    $@ = $r->content;
-    return undef;
-}
+    $@ = $r->content;   
+    return Net::Google::AuthSub::Response->new(
+        $r,
+        $self->{url},
+        _compat => $self->{_compat}
+    ); }
 
 
 =head2 authorised 
@@ -210,6 +213,13 @@ sub authorised {
     return defined $self->{_auth};
 
 }
+
+=head2 authorized 
+
+An alias for authorized.
+
+=cut
+*authorized = \&authorised;
 
 =head2 auth <username> <token>
 
@@ -228,7 +238,30 @@ sub auth {
     return 1;
 }
 
+=head2 auth_token [token] 
 
+Get or set the current auth token
+
+=cut
+sub auth_token {
+    my $self = shift;
+    $self->{_auth} = shift if @_;
+    return $self->{_auth};
+}
+
+=head2 auth_type [type]
+
+Get or set the current auth type
+
+Returns either C<$Net::Google::AuthSub::CLIENT_LOGIN> or 
+C<$Net::Google::AuthSub::AUTH_SUB>.
+
+=cut
+sub auth_type {
+    my $self = shift;
+    $self->{_auth_type} = shift if @_;
+    return $self->{_auth_type};
+}
 
 =head2 request_token <next> <scope> [option[s]]
 
